@@ -3,3 +3,4 @@ qiskit
 requests
 gevent
 qiskit
+qiskit-ibmq-provider
