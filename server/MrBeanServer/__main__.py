@@ -206,7 +206,7 @@ def serve(servername, port, id):
     def status():
         return Response(json.dumps({"server" : servername, "status": "online"}), status=200, content_type='text/plain')
 
-    server = pywsgi.WSGIServer(('0.0.0.0', 7000), application=app)
+    server = pywsgi.WSGIServer(('0.0.0.0', port), application=app)
     server.serve_forever()
 
 if __name__ == "__main__":
