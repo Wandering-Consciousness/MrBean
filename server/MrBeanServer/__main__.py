@@ -14,6 +14,8 @@ import struct
 app = Flask(__name__)
 _provider = None
 _backend = None
+_device = None
+_numQubits = 0
 _circuit = None
 _bitCache = ''
 
@@ -26,24 +28,24 @@ def main():
         print("----------------------------------------------------------------------------------------")
     else:
         # As of Nov 2021, these are the backends that were available to my API KEY
-        global backend
-        #backend = "ibmq_santiago" # 5 qubit / 32 quantum volume
-        #backend = "ibmq_manila"   # 5 qubit / 32 quantum volume
-        #backend = "ibmq_bogota"   # 5 qubit / 32 quantum volume
-        #backend = "ibmq_quito"    # 5 qubit / 16 quantum volume
-        #backend = "ibmq_belem"    # 5 qubit / 16 quantum volume
-        #backend = "ibmq_lima"     # 5 qubit / 8 quantum volume
-        #backend = "ibmq_armonk"   # 1 qubit / 1 quantum volume
-        backend = "ibmq_qasm_simulator"
-        numQubits = 5
+        global _device, _numQubits
+        #_device = "ibmq_santiago" # 5 qubit / 32 quantum volume
+        #_device = "ibmq_manila"   # 5 qubit / 32 quantum volume
+        #_device = "ibmq_bogota"   # 5 qubit / 32 quantum volume
+        #_device = "ibmq_quito"    # 5 qubit / 16 quantum volume
+        #_device = "ibmq_belem"    # 5 qubit / 16 quantum volume
+        #_device = "ibmq_lima"     # 5 qubit / 8 quantum volume
+        #_device = "ibmq_armonk"   # 1 qubit / 1 quantum volume
+        _device = "ibmq_qasm_simulator"
+        _numQubits = 5
         port = sys.argv[1]
         api_key = sys.argv[2]
         if argNo >= 4:
-            backend = sys.argv[3]
-            numQubits = int(sys.argv[4])
+            _device = sys.argv[3]
+            _numQubits = int(sys.argv[4])
         ip = requests.get('https://api.ipify.org').text
         print("----------------------------------------------------------------------------------------")
-        print("Serving MrBean on http://", ip, ":", port, " with IBM Q API KEY: ", api_key, " on backend device: ", backend, " with ", numQubits, " qubits", sep='')
+        print("Serving MrBean on http://", ip, ":", port, " with IBM Q API KEY: ", api_key, " on backend device: ", _device, " with ", _numQubits, " qubits", sep='')
         print("----------------------------------------------------------------------------------------")
 
         # set up connection to an IBM quantum computer
@@ -51,16 +53,16 @@ def main():
         IBMQ.load_account()
         global _provider, _backend
         _provider = IBMQ.get_provider('ibm-q')
-        _backend = _provider.get_backend(backend) # this can be set to any computer from the list of IBM computers
-        qr = qiskit.QuantumRegister(numQubits)
-        cr = qiskit.ClassicalRegister(numQubits)
+        _backend = _provider.get_backend(_device) # this can be set to any computer from the list of IBM computers
+        qr = qiskit.QuantumRegister(_numQubits)
+        cr = qiskit.ClassicalRegister(_numQubits)
 
         # the quantum circuit to run jobs on, QRNG here
         global _circuit
         _circuit = qiskit.QuantumCircuit(qr, cr)
         _circuit.h(qr) # Apply Hadamard gate to qubits
         _circuit.measure(qr,cr) # Collapses qubit to either 1 or 0 w/ equal prob.
-        print("Quantum circuit set up")
+        print("Quantum H circuit set up")
 
         serve("MrBeanServer", port, id)
 
@@ -228,7 +230,10 @@ def serve(servername, port, id):
 
     @app.route('/api/status')
     def status():
-        return Response(json.dumps({"server" : servername, "status": "online"}), status=200, content_type='text/plain')
+        response = json.dumps({"server" : servername, "status": "online", "qubits": _numQubits, "device": _device})
+        print("/status")
+        print("->", response)
+        return Response(response, status=200, content_type='text/plain')
 
     server = pywsgi.WSGIServer(('0.0.0.0', int(port)), application=app)
     server.serve_forever()
