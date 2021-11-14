@@ -84,7 +84,17 @@ def serve(servername, port, id):
             print("--- %s seconds for this request bit iteration ---" % (time.time() - start_time))
 
     # Returns a random n-bit string by popping n bits from bitCache.
-    def get_bit_string(n):
+    @app.route('/api/get_random_bit_string')
+    def get_random_bit_string():
+        len = 8
+        if 'min' in request.args:
+            len = float(request.args.get('len'))
+        print("get_random_bit_string(", len, ")", sep='')
+        response = str(_get_bit_string(len))
+        print("->", response)
+        return Response(response, content_type='text/plain')
+
+    def _get_bit_string(n):
         global _bitCache
         if len(_bitCache) < n:
             _request_bits(n-len(_bitCache))
@@ -111,9 +121,9 @@ def serve(servername, port, id):
         print("get_random_int(", min, ",", max, ")", sep='')
         delta = max-min
         n = math.floor(math.log(delta,2))+1
-        result = int(get_bit_string(n),2)
+        result = int(_get_bit_string(n),2)
         while(result > delta):
-            result = int(get_bit_string(n),2)
+            result = int(_get_bit_string(n),2)
         response = str(result+min)
         print("->", response)
         return Response(response, content_type='text/plain')
@@ -127,8 +137,9 @@ def serve(servername, port, id):
         response = (_get_random_int32())
         print("->", response)
         return Response(str(response), content_type='text/plain')
+
     def _get_random_int32():
-        return int(get_bit_string(32),2)
+        return int(_get_bit_string(32),2)
 
     # Returns a random 64 bit integer
     @app.route('/api/get_random_int64')
@@ -137,9 +148,9 @@ def serve(servername, port, id):
         response = (_get_random_int64())
         print("->", response)
         return Response(str(response), content_type='text/plain')
-        
+
     def _get_random_int64():
-        return int(get_bit_string(64),2)
+        return int(_get_bit_string(64),2)
 
     # Returns a random float from a uniform distribution in the range [min, max).
     @app.route('/api/get_random_float')

@@ -28,6 +28,10 @@ This Python server offers a basic API to expose some Qiskit functionality for co
 #### REST API
 -------------
 
+	http://localhost:<port>/api/get_random_bit_string
+	Arguments: len (length (number of bits))
+	E.g. http://localhost:<port>/api/get_random_bit_string?len=8
+
 	http://localhost:<port>/api/get_random_int
 	Arguments: min and max
 	E.g. http://localhost:<port>/api/get_random_in?min=0&max=10
