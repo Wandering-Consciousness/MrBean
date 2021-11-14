@@ -150,7 +150,6 @@ def serve(servername, port, id):
         max = 9
         if 'max' in request.args:
             max = float(request.args.get('max'))
-        response = (_get_random_int64())
         print("get_random_float(", min, ",", max, ")", sep='')
         response = str(_get_random_float(min, max))
         print("->", response)
@@ -172,7 +171,6 @@ def serve(servername, port, id):
         max = 9
         if 'max' in request.args:
             max = float(request.args.get('max'))
-            response = (_get_random_int64())
         print("get_random_double(", min, ",", max, ")", sep='')
         response = str(_get_random_double(min, max))
         print("->", response)
@@ -202,12 +200,12 @@ def serve(servername, port, id):
         i2 = None
         if 'i2' in request.args:
             i2 = int(request.args.get('i2'))
+        print("get_random_complex_rect(", r1, ",", r2, ",", i1, ",", i2, ")", sep='')
         re = _get_random_float(r1,r2)
         if i1 == None or i2 == None:
             im = _get_random_float(r1,r2)
         else:
             im = _get_random_float(i1,i2)
-        print("get_random_complex_rect(", r1, ",", r2, ",", i1, ",", i2, ")", sep='')
         response = str(re+im*1j)
         print("->", response)
         return Response(response, content_type='text/plain')
