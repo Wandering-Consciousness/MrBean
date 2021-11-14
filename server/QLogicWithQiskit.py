@@ -1,4 +1,3 @@
-import unreal_engine as ue
 import random
 
 from qiskit import *
@@ -9,6 +8,11 @@ from numpy import pi
 backend = Aer.get_backend('statevector_simulator')
 # The number of measurements to implement
 num_shots = 1000    
+circ = None
+
+def set_backend(_backend):
+    global backend
+    backend = _backend
 
 def init_circ(n):
     circ = QuantumCircuit(n, n)
@@ -50,7 +54,7 @@ def set_circuit_measure(sv, circ):
 class QLogic:
 
     def begin_play(self):
-        self.actor = self.uobject.get_owner()
+        #self.actor = self.uobject.get_owner()
         self.circ = init_circ(2)
         
     def init(self):
@@ -64,7 +68,8 @@ class QLogic:
          
     def get_probv(self):
         v = get_prob(self.circ)
-        ue.print_string(str(v))
+        #ue.print_string(str(v))
+        print(str(v))
         return arraystring(v)
     
     def reset0(self):
