@@ -106,26 +106,36 @@ def serve(servername, port, id):
         max = 9
         if 'max' in request.args:
             max = int(request.args.get('max'))
+        print("get_random_int(", min, ",", max, ")", sep='')
         delta = max-min
         n = math.floor(math.log(delta,2))+1
         result = int(get_bit_string(n),2)
         while(result > delta):
             result = int(get_bit_string(n),2)
-        return Response(str(result+min), content_type='text/plain')
+        response = str(result+min)
+        print("->", response)
+        return Response(response, content_type='text/plain')
 
     # def getRandomIntEntaglement(min,max):
 
     # Returns a random 32 bit integer
     @app.route('/api/get_random_int32')
     def get_random_int32():
-        return Response(str(_get_random_int32()), content_type='text/plain')
+        print("get_random_int32()")
+        response = (_get_random_int32())
+        print("->", response)
+        return Response(str(response), content_type='text/plain')
     def _get_random_int32():
         return int(get_bit_string(32),2)
 
     # Returns a random 64 bit integer
     @app.route('/api/get_random_int64')
     def get_random_int64():
-        return Response(str(_get_random_int64()), content_type='text/plain')
+        print("get_random_int64()")
+        response = (_get_random_int64())
+        print("->", response)
+        return Response(str(response), content_type='text/plain')
+        
     def _get_random_int64():
         return int(get_bit_string(64),2)
 
@@ -138,16 +148,20 @@ def serve(servername, port, id):
         max = 9
         if 'max' in request.args:
             max = float(request.args.get('max'))
-        return Response(str(_get_random_float(min, max)), content_type='text/plain')
+        response = (_get_random_int64())
+        print("get_random_float(", min, ",", max, ")", sep='')
+        response = str(_get_random_float(min, max))
+        print("->", response)
+        return Response(response, content_type='text/plain')
+
     def _get_random_float(min, max):
         # Get random float from [0,1)
         unpacked = 0x3F800000 | _get_random_int32() >> 9
         packed = struct.pack('I',unpacked)
         value = struct.unpack('f',packed)[0] - 1.0
-        ret = (max-min)*value+min # Scale float to given range
-        return Response(str(ret), content_type='text/plain')
+        response = (max-min)*value+min # Scale float to given range
+        return response
 
-    # Returns a random double from a uniform distribution in the range [min, max).
     @app.route('/api/get_random_double')
     def get_random_double():
         min = 0
@@ -156,12 +170,19 @@ def serve(servername, port, id):
         max = 9
         if 'max' in request.args:
             max = float(request.args.get('max'))
+            response = (_get_random_int64())
+        print("get_random_double(", min, ",", max, ")", sep='')
+        response = str(_get_random_double(min, max))
+        print("->", response)
+        return Response(response, content_type='text/plain')
+
+    def _get_random_double(min, max):
         # Get random double from [0,1)
         unpacked = 0x3FF0000000000000 | _get_random_int64() >> 12
         packed = struct.pack('Q',unpacked)
         value = struct.unpack('d',packed)[0] - 1.0
-        ret = (max-min)*value+min # Scale double to given range
-        return Response(str(ret), content_type='text/plain')
+        response = (max-min)*value+min # Scale double to given range
+        return response
 
     # Returns a random complex with both real and imaginary parts
     # from the given ranges. If no imaginary range specified, real range used.
@@ -184,8 +205,10 @@ def serve(servername, port, id):
             im = _get_random_float(r1,r2)
         else:
             im = _get_random_float(i1,i2)
-        ret = re+im*1j
-        return Response(str(ret), content_type='text/plain')
+        print("get_random_complex_rect(", r1, ",", r2, ",", i1, ",", i2, ")", sep='')
+        response = str(re+im*1j)
+        print("->", response)
+        return Response(response, content_type='text/plain')
 
     # Returns a random complex in rectangular form from a given polar range.
     # If no max angle given, [0,2pi) used.
@@ -197,10 +220,11 @@ def serve(servername, port, id):
         theta=2*math.pi
         if 'theta' in request.args:
             theta = float(request.args.get('theta'))
+        print("get_random_complex_polar(", r, ",", theta, ")", sep='')
         r0 = r * math.sqrt(_get_random_float(0,1))
         theta0 = _get_random_float(0,theta)
-        ret = r0*math.cos(theta0)+r0*math.sin(theta0)*1j
-        return Response(str(ret), content_type='text/plain')
+        response = str(r0*math.cos(theta0)+r0*math.sin(theta0)*1j)
+        return Response(response, content_type='text/plain')
 
     @app.route('/api/status')
     def status():
