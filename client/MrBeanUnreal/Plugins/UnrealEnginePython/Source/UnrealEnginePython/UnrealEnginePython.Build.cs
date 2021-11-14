@@ -28,7 +28,6 @@ public class UnrealEnginePython : ModuleRules
 
     private string[] macKnownPaths =
     {
-        "/Library/Frameworks/Python.framework/Versions/3.9",
         "/Library/Frameworks/Python.framework/Versions/3.7",
         "/Library/Frameworks/Python.framework/Versions/3.6",
         "/Library/Frameworks/Python.framework/Versions/3.5",
