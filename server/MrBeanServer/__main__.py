@@ -79,7 +79,7 @@ def serve(servername, port, id):
             start_time = time.time()
             job = qiskit.execute(_circuit, _backend, shots=1)
             _bitCache += _bit_from_counts(job.result().get_counts())
-            print("--- %s seconds for this execution ---" % (time.time() - start_time))
+            print("--- %s seconds for this request bit iteration ---" % (time.time() - start_time))
 
     # Returns a random n-bit string by popping n bits from bitCache.
     def get_bit_string(n):
