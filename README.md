@@ -5,11 +5,11 @@ The Unreal rendition of our project titled "Bean Jam" for the Internet Festival 
 By Team Bean 14th November 2021
 “Team work makes the bean work”
 
-Kartikeya Rambhatla (Powerhouse Coder, Quantum Physicist)
-Olli Dahlgren (Coder, Quantum Physicist)
-Simon McCorkindale (Coder, Aspiring Quantum Computerist)
-Nicole Farrier (Quantum Physicist)
-Sanjuktha Mukund (Game Designer)
+* Kartikeya Rambhatla (Powerhouse Coder, Quantum Physicist)
+* Olli Dahlgren (Coder, Quantum Physicist)
+* Simon McCorkindale (Coder, Aspiring Quantum Computerist)
+* Nicole Farrier (Quantum Physicist)
+* Sanjuktha Mukund (Game Designer)
 
 ## Story
 
