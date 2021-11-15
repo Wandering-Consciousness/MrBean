@@ -35,7 +35,7 @@ This Python server offers a basic API to expose some Qiskit functionality for co
 1. Run the following commands
    ```
    pip3 install -r requirements.txt
-   python3 -m MrBeanServer <port> 
+   python3 -m MrBeanServer <port> <IBM Q API KEY> [IBM backend|empty for simulator] [num qubits]
    ```
 
 #### Usage Example
@@ -44,7 +44,7 @@ This Python server offers a basic API to expose some Qiskit functionality for co
 #### REST API
 -------------
 
-	##### QRNG
+	#### QRNG
 
 	http://localhost:<port>/api/get_random_bit_string
 	Arguments: len (length (number of bits))
@@ -70,7 +70,7 @@ This Python server offers a basic API to expose some Qiskit functionality for co
 	http://localhost:<port>/api/get_random_complex_polar
 	Arguments: r and theta
 
-	##### Qiskit with a 2 qubit circuit:
+	#### Qiskit with a 2 qubit circuit:
 
 	Use same hostname/port like as above.
 
@@ -93,7 +93,7 @@ This Python server offers a basic API to expose some Qiskit functionality for co
     /api/qlogic/S1
     /api/qlogic/CNOT1
 
-    ##### API server status:
+    #### API server status:
     /api/status
 
 	Check the server source code comments for more details.
