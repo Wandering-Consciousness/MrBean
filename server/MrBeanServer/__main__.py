@@ -252,129 +252,129 @@ def serve(servername, port, id):
         # can't call collapse if playing with this circuit coz can't use qasm_simulator or ibmq_*** real devices as used for the RNG coz they don't have a statevector
         QLogicWithQiskit.set_backend(_backend)
         response = QLogic.begin_play()
-        return Response("OK", content_type='text/plain')
+        return Response(json.dumps({"result": "ok"}), content_type='text/json; charset="utf-8"')
 
     @app.route('/api/qlogic/begin_play')
     def begin_play():
         print("QLogic begin_play()")
         response = QLogic.begin_play()
-        return Response("OK", content_type='text/plain')
+        return Response(json.dumps({"result": "ok"}), content_type='text/json; charset="utf-8"')
     
     @app.route('/api/qlogic/init')
     def init():
         print("QLogic init()")
         response = QLogic.init()
-        return Response("OK", content_type='text/plain')
+        return Response(json.dumps({"result": "ok"}), content_type='text/json; charset="utf-8"')
 
     @app.route('/api/qlogic/collapse')
     def collapse():
         print("QLogic collapse()")
         response = QLogic.collapse()
-        return Response(str(response), content_type='text/plain')
+        return Response(str(response), content_type='text/plain; charset="utf-8"')
 
     @app.route('/api/qlogic/get_probv')
     def get_probv():
         print("QLogic get_probv()")
-        response = QLogic.get_probv()
-        print(str(response))
-        return Response(str(response), content_type='text/plain')
+        response = json.dumps({"result": QLogic.get_probv()})
+        print(response)
+        return Response(response, content_type='text/plain; charset="utf-8"')
 
     @app.route('/api/qlogic/reset0')
     def reset0():
         print("QLogic reset0()")
         response = QLogic.reset0()
         print(str(response))
-        return Response(str(response), content_type='text/plain')
+        return Response(str(response), content_type='text/plain; charset="utf-8"')
 
     @app.route('/api/qlogic/reset1')
     def reset1():
         print("QLogic reset1()")
         response = QLogic.reset1()
-        return Response(str(response), content_type='text/plain')
+        return Response(str(response), content_type='text/plain; charset="utf-8"')
 
     @app.route('/api/qlogic/X0')
     def X0():
         print("QLogic X0()")
         response = QLogic.X0()
         print(str(response))
-        return Response(str(response), content_type='text/plain')
+        return Response(str(response), content_type='text/plain; charset="utf-8"')
 
     @app.route('/api/qlogic/H0')
     def H0():
         print("QLogic H0()")
         response = QLogic.H0()
         print(str(response))
-        return Response(str(response), content_type='text/plain')
+        return Response(str(response), content_type='text/plain; charset="utf-8"')
 
     @app.route('/api/qlogic/Y0')
     def Y0():
         print("QLogic Y0()")
         response = QLogic.Y0()
         print(str(response))
-        return Response(str(response), content_type='text/plain')
+        return Response(str(response), content_type='text/plain; charset="utf-8"')
 
     @app.route('/api/qlogic/Z0')
     def Z0():
         print("QLogic Z0()")
         response = QLogic.Z0()
         print(str(response))
-        return Response(str(response), content_type='text/plain')
+        return Response(str(response), content_type='text/plain; charset="utf-8"')
 
     @app.route('/api/qlogic/S0')
     def S0():
         print("QLogic S0()")
         response = QLogic.S0()
         print(str(response))
-        return Response(str(response), content_type='text/plain')
+        return Response(str(response), content_type='text/plain; charset="utf-8"')
 
     @app.route('/api/qlogic/CNOT0')
     def CNOT0():
         print("QLogic CNOT0()")
         response = QLogic.CNOT0()
         print(str(response))
-        return Response(str(response), content_type='text/plain')
+        return Response(str(response), content_type='text/plain; charset="utf-8"')
 
     @app.route('/api/qlogic/X1')
     def X1():
         print("QLogic X1()")
         response = QLogic.X1()
         print(str(response))
-        return Response(str(response), content_type='text/plain')
+        return Response(str(response), content_type='text/plain; charset="utf-8"')
 
     @app.route('/api/qlogic/H1')
     def H1():
         print("QLogic H1()")
         response = QLogic.H1()
         print(str(response))
-        return Response(str(response), content_type='text/plain')
+        return Response(str(response), content_type='text/plain; charset="utf-8"')
 
     @app.route('/api/qlogic/Y1')
     def Y1():
         print("QLogic Y1()")
         response = QLogic.Y1()
         print(str(response))
-        return Response(str(response), content_type='text/plain')
+        return Response(str(response), content_type='text/plain; charset="utf-8"')
 
     @app.route('/api/qlogic/Z1')
     def Z1():
         print("QLogic Z1()")
         response = QLogic.Z1()
         print(str(response))
-        return Response(str(response), content_type='text/plain')
+        return Response(str(response), content_type='text/plain; charset="utf-8"')
 
     @app.route('/api/qlogic/S1')
     def S1():
         print("QLogic S1()")
         response = QLogic.S1()
         print(str(response))
-        return Response(str(response), content_type='text/plain')
+        return Response(str(response), content_type='text/plain; charset="utf-8"')
 
     @app.route('/api/qlogic/CNOT1')
     def CNOT1():
         print("QLogic CNOT1()")
         response = QLogic.CNOT1()
         print(str(response))
-        return Response(str(response), content_type='text/plain')
+        return Response(str(response), content_type='text/plain; charset="utf-8"')
 
     # Get the status of the API server
     @app.route('/api/status')
