@@ -67,6 +67,8 @@ class QLogic:
         return self.circ
          
     def get_probv(self):
+        if not hasattr(self, 'circ'):
+            return arraystring([])
         v = get_prob(self.circ)
         #ue.print_string(str(v))
         print(str(v))
