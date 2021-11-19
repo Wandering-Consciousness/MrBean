@@ -23,7 +23,17 @@ Join Mr Bean on his epic quest through the small world of quantum to reach an ev
 
 ### Client
 
-There's a basic Unity project we did a basic mock up with but no logic was implemented. We switched to Unreal.
+There's a basic Unity project we did a basic mock up with but no logic was implemented. We switched to Unreal. Read the presentation slides for more info on how to play.
+
+!(https://github.com/Wandering-Consciousness/MrBean/blob/main/client/MrBeanUnreal/screenshot1.png)
+!(https://github.com/Wandering-Consciousness/MrBean/blob/main/client/MrBeanUnreal/screenshot2.png)
+!(https://github.com/Wandering-Consciousness/MrBean/blob/main/client/MrBeanUnreal/screenshot3.png)
+!(https://github.com/Wandering-Consciousness/MrBean/blob/main/client/MrBeanUnreal/screenshot4.png)
+
+Download versions that integrate with the API backend server, not a local copy of UnrealEnginePython:
+
+[Windows version]()
+[Mac version](https://drive.google.com/file/d/1IC3V3rd1iMOZ3ouAd5A5HMbPSOKMk5uJ/view?usp=sharing)
 
 ### Server
 
